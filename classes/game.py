@@ -91,8 +91,29 @@ class Person:
             print("        " + str(i) + ".", item["Item"].name, ":", item["Item"].description, "(x" + str(item["Quantity"]) + ")")
             i+=1
 
+    def progress_bar(self, props):
+        hp_percentage = 25 * (self.hp / self.maxhp)
+        mp_percentage = 10 * (self.mp / self.maxmp)
+        hp_filled = int(hp_percentage)*"█"
+        mp_filled = int(mp_percentage)*"█"
+        hp_spaces = (25-int(hp_percentage))*" "
+        mp_spaces = (10-int(mp_percentage))*" "
+
+        hp_bar = hp_filled+hp_spaces
+        mp_bar = mp_filled+mp_spaces
+
+        if props == "hp":
+            return hp_bar
+        elif props == "mp":
+            return mp_bar
+        else:
+            return 0
+
+        
     def get_stats(self):
         print("                         _________________________          __________")
         print(bcolors.BOLD + self.name +
-         str(self.hp) + "/" + str(self.maxhp) + "   |" + bcolors.OKGREEN + "█████████████████████████" + bcolors.ENDC + 
-        "|  " + str(self.mp) + "/" + str(self.maxmp) + " |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|")
+         str(self.hp) + "/" + str(self.maxhp) + "   |" + bcolors.OKGREEN + self.progress_bar("hp") + bcolors.ENDC + 
+        "|  " + str(self.mp) + "/" + str(self.maxmp) + " |" + bcolors.OKBLUE + self.progress_bar("mp") + bcolors.ENDC + "|")
+
+    
